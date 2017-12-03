@@ -1,14 +1,21 @@
 defmodule Mix.Tasks.Solve do
   use Mix.Task
 
-  @shortdoc "Solve a given day's problems"
+  @doc """
+  Solve a given day's problems
+  
+  Usage: mix solve day1 first 123456
+  """
 
-  def run([day | inputs]) do
+  def run([day, part |  inputs]) do
     day
     |> string_to_module
-    |> apply(:solve, inputs)
+    |> apply(method(part), inputs)
     |> IO.puts
   end
+
+  defp method(part) when part == "first", do: :solve_first
+  defp method(part) when part == "second", do: :solve_first
 
   defp string_to_module(name) do
     name
