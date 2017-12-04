@@ -8,7 +8,7 @@ defmodule Mix.Tasks.Solve do
          mix solve day1.2 123456
   """
 
-  def run([day |  inputs]) do
+  def run([day | inputs]) do
     {module, function} = split_day_into_callable(day)
 
     IO.puts apply(module, function, inputs)
