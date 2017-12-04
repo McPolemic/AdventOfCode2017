@@ -21,16 +21,21 @@ defmodule AdventOfCode.Day2 do
     max - min
   end
 
-  defp row_checksum(line) do
-    line
-    |> row_from_string
+  defp row_checksum(row) do
+    row
     |> extremes
     |> row_differences
   end
 
-  def checksum(rows) do
+  defp get_spreadsheet(rows) do
     rows
     |> String.split(~r{[\r\n]})
+    |> Enum.map(&row_from_string/1)
+  end
+
+  def checksum(rows) do
+    rows
+    |> get_spreadsheet
     |> Enum.map(&row_checksum/1)
     |> Enum.sum
   end

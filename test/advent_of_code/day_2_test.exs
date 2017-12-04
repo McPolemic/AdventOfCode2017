@@ -21,6 +21,14 @@ defmodule AdventOfCode.Day2Test do
     end
 
     @tag :private
+    test "converts a block of text into nested lists" do
+      rows = "1 2 3
+4 5 6
+7 8"
+      assert Day2.get_spreadsheet(rows) == [[1,2,3], [4,5,6], [7,8]]
+    end
+
+    @tag :private
     test "the difference of the row's extremes" do
       assert Day2.row_differences({10, 4}) == 6
     end
