@@ -5,6 +5,9 @@ defmodule AdventOfCode.Day2 do
 
   def solve_second(input) do
     input
+    |> get_spreadsheet
+    |> Enum.map(&evenly_divisible_values/1)
+    |> Enum.sum
   end
 
   defp row_from_string(input) do
@@ -38,5 +41,27 @@ defmodule AdventOfCode.Day2 do
     |> get_spreadsheet
     |> Enum.map(&row_checksum/1)
     |> Enum.sum
+  end
+
+  def perfect_div(x, y) when y > x, do: perfect_div(y, x)
+  def perfect_div(x, y) when rem(x, y) != 0, do: nil
+  def perfect_div(x, y) do
+    div(x, y)
+  end
+
+  # Divide the first row value from the rest of the values to
+  # see if anyone of them divide evenly. If it does, return that.
+  # Otherwise, repeat with the rest of the values (which checks
+  # against the second value, then the third, etc.)
+  defp evenly_divisible_values([numerator | rest]) do
+    result = rest
+    |> Enum.map(& perfect_div(numerator, &1))
+    |> Enum.reject(&is_nil/1)
+    |> List.first
+
+    case result do
+      nil -> evenly_divisible_values(rest)
+      _ -> result
+    end
   end
 end

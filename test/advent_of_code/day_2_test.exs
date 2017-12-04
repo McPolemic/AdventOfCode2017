@@ -3,13 +3,18 @@ defmodule AdventOfCode.Day2Test do
 
   alias AdventOfCode.Day2
 
-  @tag :skip
   test "solves the first problem" do
-    assert Day2.solve_first("2222") == 3
+    rows = "5 1 9 5
+7 5 3
+2 4 6 8"
+    assert Day2.solve_first(rows) == 18
   end
 
-  @tag :skip
   test "solves the second problem" do
+    rows = "5 9 2 8
+9 4 7 3
+3 8 6 5"
+    assert Day2.solve_second(rows) == 9
   end
 
   describe "private tests" do
@@ -41,6 +46,19 @@ defmodule AdventOfCode.Day2Test do
     @tag :private
     test "create a row from a string" do
       assert Day2.row_from_string("1 2 3 4") == [1,2,3,4]
+    end
+
+    @tag :private
+    test "determines if a number cleanly divides into another" do
+      assert Day2.perfect_div(4, 2) == 2
+      assert Day2.perfect_div(2, 4) == 2
+      assert Day2.perfect_div(4, 3) == nil
+    end
+
+    @tag :private
+    test "finds evenly divisible values" do
+      row = [11, 7, 4, 2]
+      assert Day2.evenly_divisible_values(row) == 2
     end
   end
 end
