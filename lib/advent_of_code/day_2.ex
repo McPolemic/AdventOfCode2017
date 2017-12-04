@@ -1,13 +1,18 @@
 defmodule AdventOfCode.Day2 do
-  def solve_first(input) do
-    checksum input
-  end
+  def solve_first(input), do: process(input, &row_checksum/1)
+  def solve_second(input), do: process(input, &evenly_divisible_values/1)
 
-  def solve_second(input) do
+  defp process(input, row_processing_fn) do
     input
     |> get_spreadsheet
-    |> Enum.map(&evenly_divisible_values/1)
+    |> Enum.map(row_processing_fn)
     |> Enum.sum
+  end
+
+  defp get_spreadsheet(rows) do
+    rows
+    |> String.split(~r{[\r\n]})
+    |> Enum.map(&row_from_string/1)
   end
 
   defp row_from_string(input) do
@@ -28,19 +33,6 @@ defmodule AdventOfCode.Day2 do
     row
     |> extremes
     |> row_differences
-  end
-
-  defp get_spreadsheet(rows) do
-    rows
-    |> String.split(~r{[\r\n]})
-    |> Enum.map(&row_from_string/1)
-  end
-
-  def checksum(rows) do
-    rows
-    |> get_spreadsheet
-    |> Enum.map(&row_checksum/1)
-    |> Enum.sum
   end
 
   def perfect_div(x, y) when y > x, do: perfect_div(y, x)

@@ -18,13 +18,6 @@ defmodule AdventOfCode.Day2Test do
   end
 
   describe "private tests" do
-    test "adds up the differences of all rows" do
-      rows = "5 1 9 5
-7 5 3
-2 4 6 8"
-      assert Day2.checksum(rows) == 18
-    end
-
     @tag :private
     test "converts a block of text into nested lists" do
       rows = "1 2 3
